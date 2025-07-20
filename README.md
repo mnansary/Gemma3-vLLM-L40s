@@ -153,3 +153,26 @@ docker stop gemma3-server
 # Remove the container
 docker rm gemma3-server
 ```
+
+
+# Appendix 
+
+## For controlled faster service of text only services
+
+```bash
+docker run -d --gpus all --name gemma3-server -p 24434:8000 \
+-v "$HOME/.cache/huggingface:/root/.cache/huggingface" \
+vllm/vllm-openai:latest \
+--model RedHatAI/gemma-3-27b-it-FP8-dynamic \
+--host 0.0.0.0 \
+--port 8000 \
+--max-model-len 32768 \
+--gpu-memory-utilization 0.9 \
+--max-num-batched-tokens 8192 \
+--trust-remote-code \
+--api-key YOUR_SUPER_SECRET_KEY \
+--enable-chunked-prefill \
+--max-num-seqs 256 \
+--kv-cache-dtype fp8 \
+--enforce-eager
+```
