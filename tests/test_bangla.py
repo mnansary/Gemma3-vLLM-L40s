@@ -3,7 +3,7 @@ import openai
 # Configure the OpenAI client to connect to your local server
 client = openai.OpenAI(
     api_key="YOUR_SUPER_SECRET_KEY",
-    base_url="http://localhost:24434/v1",
+    base_url="http://localhost:5000/v1",
 )
 
 # Define the conversation in Bengali

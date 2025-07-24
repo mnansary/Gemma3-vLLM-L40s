@@ -1,6 +1,6 @@
-# Deploying RedHat's FP8 Gemma-3 27B with vLLM for High-Performance Inference
+# Deploying RedHat's FP8 Gemma-3 4B with vLLM for High-Performance Inference
 
-This guide provides a complete, step-by-step walkthrough for deploying the `RedHatAI/gemma-3-27b-it-FP8-dynamic` model using the vLLM inference server. The result is a secure, high-performance, OpenAI-compatible API endpoint capable of text, multi-language, and multi-modal (image-text) inference.
+This guide provides a complete, step-by-step walkthrough for deploying the `RedHatAI/gemma-3-4b-it-FP8-dynamic` model using the vLLM inference server. The result is a secure, high-performance, OpenAI-compatible API endpoint capable of text, multi-language, and multi-modal (image-text) inference.
 
 The instructions cover everything from system setup to launching the server and verifying its functionality with a suite of Python test scripts.
 
@@ -87,7 +87,7 @@ huggingface-cli login
 
 # Download the model files. They will be stored in ~/.cache/huggingface/
 # We use the repository ID directly; no need for --local-dir
-huggingface-cli download RedHatAI/gemma-3-27b-it-FP8-dynamic
+huggingface-cli download RedHatAI/gemma-3-4b-it-FP8-dynamic
 ```
 
 ## 4. Launch the Inference Server
@@ -97,14 +97,14 @@ The following command starts the vLLM server in a detached container, mounts you
 > **IMPORTANT:** Replace `YOUR_SUPER_SECRET_KEY` with your own secure key. This key will be required to authenticate all API requests.
 
 ```bash
-docker run -d --gpus all --name gemma3-server -p 24434:8000 \
+docker run -d --gpus all --name gemma3-server -p 5000:8000 \
 -v "$HOME/.cache/huggingface:/root/.cache/huggingface" \
 vllm/vllm-openai:latest \
---model RedHatAI/gemma-3-27b-it-FP8-dynamic \
+--model RedHatAI/gemma-3-4b-it-FP8-dynamic \
 --host 0.0.0.0 \
 --port 8000 \
 --max-model-len 32768 \
---gpu-memory-utilization 0.90 \
+--gpu-memory-utilization 0.85 \
 --trust-remote-code \
 --api-key YOUR_SUPER_SECRET_KEY
 ```

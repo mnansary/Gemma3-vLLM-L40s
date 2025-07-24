@@ -6,7 +6,7 @@ import time
 # Using AsyncOpenAI is crucial for concurrent requests.
 client = openai.AsyncOpenAI(
     api_key="YOUR_SUPER_SECRET_KEY",
-    base_url="http://localhost:24434/v1",
+    base_url="http://localhost:5000/v1",
 )
 
 # A list of different prompts to send simultaneously
